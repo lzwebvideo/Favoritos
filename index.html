@@ -37,19 +37,17 @@
     </section>
   </main>
 
-<br>
-<br>
-<br>
+<br><br><br>
 
 <nav class="fixed bottom-0 left-0 w-full bg-[#1E1E1E] flex justify-around items-center py-3 rounded-b-3xl text-white text-xs font-semibold z-50">
   <a href="https://zinecia.github.io/Home" class="flex flex-col items-center space-y-1">
     <i class="fas fa-home text-xl"></i><span>Inicio</span>
   </a>
-  <a href="https://zinecia.github.io/serie/" class="flex flex-col items-center space-y-1">
-    <i class="fas fa-tv text-xl"></i><span>Series</span>
+  <a href="https://lzwebvideo.github.io/Favoritos/" class="flex flex-col items-center space-y-1 text-red-600">
+    <i class="fas fa-heart text-xl"></i><span>Fav 1</span>
   </a>
-  <a href="https://zinecia.github.io/Favoritos/" class="flex flex-col items-center space-y-1  text-red-600">
-    <i class="fas fa-heart text-xl"></i><span>Favoritos</span>
+  <a href="https://zinecia.github.io/Favoritos/" class="flex flex-col items-center space-y-1">
+    <i class="fas fa-heart text-xl"></i><span>Fav 2</span>
   </a>
   <a href="https://zinecia.github.io/Buscador/" class="flex flex-col items-center space-y-1">
     <i class="fas fa-search text-xl"></i><span>Buscar</span>
@@ -65,7 +63,6 @@
 
     let encontrados = 0;
 
-    // Recorre todos los items del localStorage
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
 
@@ -93,11 +90,7 @@
     if (encontrados === 0) {
       container.innerHTML = `
         <div class="flex flex-col items-center justify-center w-full py-10 text-center space-y-3 text-gray-400">
-          <p>Si no encuentras tus favoritos aquí, busca en la parte 1.</p>
-          <a href="https://zinecia.github.io/Favoritos/" 
-             class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg transition">
-            Parte 2
-          </a>
+          <p>Si no encuentras tus favoritos aquí, intenta buscar en la parte Fav - 1 o Fav - 2 en el menu inferior</p>
         </div>
       `;
     }
