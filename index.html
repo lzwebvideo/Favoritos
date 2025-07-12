@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Favoritos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Encabezado -->
+  <header class="p-4">
+    <div class="bg-[#1a1a1a] rounded-xl flex items-center justify-between px-5 py-3">
+      <h1 class="font-extrabold text-lg">Favoritos</h1>
+      <a href="https://zinecia.github.io/Buscador/" aria-label="Buscar" class="text-white text-xl">
+        <i class="fas fa-search"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="px-4 flex-1">
+    <section class="mb-4">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="font-bold text-sm">Películas Favoritas</h2>
+      </div>
+
+      <!-- Contenedor de favoritos -->
+      <div id="favoritosContainer" class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+        <!-- Aquí se agregarán los pósteres dinámicamente -->
+      </div>
+    </section>
+  </main>
+
+<br>
+<br>
+<br>
+
+<nav class="fixed bottom-0 left-0 w-full bg-[#1E1E1E] flex justify-around items-center py-3 rounded-b-3xl text-white text-xs font-semibold z-50">
+  <a href="https://zinecia.github.io/Home" class="flex flex-col items-center space-y-1">
+    <i class="fas fa-home text-xl"></i><span>Inicio</span>
+  </a>
+  <a href="https://zinecia.github.io/serie/" class="flex flex-col items-center space-y-1">
+    <i class="fas fa-tv text-xl"></i><span>Series</span>
+  </a>
+  <a href="https://zinecia.github.io/Favoritos/" class="flex flex-col items-center space-y-1  text-red-600">
+    <i class="fas fa-heart text-xl"></i><span>Favoritos</span>
+  </a>
+  <a href="https://zinecia.github.io/Buscador/" class="flex flex-col items-center space-y-1">
+    <i class="fas fa-search text-xl"></i><span>Buscar</span>
+  </a>
+</nav>
+
+<!-- Script para cargar favoritos -->
+<script>
+  const container = document.getElementById('favoritosContainer');
+
+  function cargarFavoritos() {
+    container.innerHTML = ''; // Limpiar
+
+    let encontrados = 0;
+
+    // Recorre todos los items del localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      if (key.startsWith('fav-')) {
+        try {
+          const fav = JSON.parse(localStorage.getItem(key));
+
+          const div = document.createElement('div');
+          div.className = 'min-w-[100px] flex-shrink-0';
+          div.innerHTML = `
+            <a href="${fav.url}">
+              <img src="${fav.poster}" alt="${fav.title}" class="rounded-md w-[130px] h-[180px] object-cover mb-1">
+              <div class="text-xs text-center text-gray-300 font-medium truncate w-[140px]">${fav.title}</div>
+            </a>
+          `;
+
+          container.appendChild(div);
+          encontrados++;
+        } catch (error) {
+          console.error('Error leyendo favorito:', key, error);
+        }
+      }
+    }
+
+    if (encontrados === 0) {
+      container.innerHTML = `
+        <div class="flex flex-col items-center justify-center w-full py-10 text-center space-y-3 text-gray-400">
+          <p>Si no encuentras tus favoritos aquí, busca en la parte 1.</p>
+          <a href="https://zinecia.github.io/Favoritos/" 
+             class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg transition">
+            Parte 2
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  cargarFavoritos();
+</script>
+
+</body>
+</html>
